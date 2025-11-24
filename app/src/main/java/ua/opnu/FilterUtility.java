@@ -1,13 +1,17 @@
 package ua.opnu;
 import java.util.Arrays;
 import java.util.function.Predicate;
+import java.lang.reflect.Array;
 
 public class FilterUtility {
 
     public static <T> T[] filter(T[] input, Predicate<T> p) {
-        // Створення масиву узагальненого типу з приведенням
+
         @SuppressWarnings("unchecked")
-        T[] result = (T[]) new Object[input.length];
+        final T[] result = (T[]) Array.newInstance(
+                input.getClass().getComponentType(), // Отримуємо фактичний тип T
+                input.length
+        );
 
         int counter = 0;
         for (T element : input) {
